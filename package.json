@@ -1,0 +1,25 @@
+{
+  "name": "tcp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\"",
+    "startServer": "http-server ",
+    "installModules": "npm i"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://orkan.tu.kielce.pl/gitlab/marcin.bamburski/BB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.9",
+    "angular-md5": "^0.1.10",
+    "bootstrap": "^4.0.0",
+    "bower": "^1.8.4",
+    "http-server": "^0.11.1",
+    "jquery": "^3.3.1"
+  }
+}

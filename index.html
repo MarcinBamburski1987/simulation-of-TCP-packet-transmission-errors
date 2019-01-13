@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TCP</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/css/myCss.css">
+</head>
+
+<body ng-app="app" class="bg-dark">
+
+<main ng-controller="mainController" class="container ">
+    <div class="row">
+        <div class="col-12">
+
+
+            <section class="card mt-5" ng-controller="senderController">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input" id="customCheck0"
+                                       ng-model="errors.address">
+                                <label class="custom-control-label" for="customCheck0">Address</label>
+                            </div>
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                       ng-model="errors.connection">
+                                <label class="custom-control-label" for="customCheck1">Connection</label>
+                            </div>
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input" id="customCheck2"
+                                       ng-model="errors.message">
+                                <label class="custom-control-label" for="customCheck2">Message</label>
+                            </div>
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input" id="customCheck3"
+                                       ng-model="errors.checksum" ng-click="test()">
+                                <label class="custom-control-label" for="customCheck3">Checksum</label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="btn-group mb-3 float-right">
+                                <button class="btn btn-success" ng-if="!connection.isConnected"
+                                        ng-click="onInitConnection('receiver',{senderName:'sender'})">
+                                    Init connection
+                                </button>
+                                <button class="btn btn-danger" ng-click="onCancelConnection()">Cancel connection
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row" ng-if="connection.isConnected">
+                        <div class="col-md-12">
+                            <div class="input-group mb-3">
+                                <input type="text" ng-model="message" class="form-control"
+                                       placeholder="Recipient's username" aria-label="Recipient's username"
+                                       aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-success"
+                                            ng-click="onSendMessage('receiver',{senderName:'sender',message: message})">
+                                        Send message
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--<form>-->
+                    <!--<div class="row">-->
+                    <!--<div class="col-6">-->
+                    <!--<div class="form-group">-->
+                    <!--<input class="form-control" type="text" ng-model="message"-->
+                    <!--placeholder="type message">-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-6">-->
+                    <!--<button class="btn btn-success" ng-click="sendMessage(message)">Send</button>-->
+                    <!--<button class="btn btn-danger" ng-click="generateCheckSumError()">generate check sum-->
+                    <!--error-->
+                    <!--</button>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</form>-->
+
+
+                </div>
+            </section>
+
+
+            <section class="card mt-5" ng-controller="receiverController">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="btn-group float-right">
+                                <button class="btn btn-warning ml-1" ng-click="onMsgClear()">Clear</button>
+                            </div>
+                            <ul class="list-group">
+                                    <li class="list-group-item" ng-repeat="item in msgList track by $index">
+                                        {{item.received | date: 'HH:mm.ss'}} sender: {{item.senderName}}, msg:
+                                        {{item.message}}
+                                    </li>
+                            </ul>
+                            <!--<div ng-if="isItNumberAndCheckSumSame==true" ng-init="isItSameValue()">-->
+                            <!--<p>{{receivedMessage}}</p>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+
+
+</main>
+<!--libs-->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/angular/angular.min.js"></script>
+<!--our scripts-->
+<script src="app/main/mainModule.js"></script>
+<script src="app/main/receiverCtrl.js"></script>
+<script src="app/main/senderCtrl.js"></script>
+</body>
+</html>
